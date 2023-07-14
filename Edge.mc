@@ -54,8 +54,6 @@ class Edge extends WatchUi.Drawable {
 						(position == EDGE_LEFT) ? 180 :
 						(position == EDGE_BOTTOM) ? 270 : null;
 		
-			  		var angleStart = position -45;
-		
 					// Quarter circle
 					if(angle != null){
 						dc.drawArc(width/2, height/2, radius, Graphics.ARC_COUNTER_CLOCKWISE, angle-45, angle+45);

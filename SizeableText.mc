@@ -21,12 +21,16 @@ module MyDrawables{
 			Text.initialize(options);
 		}
 		
-		function getFont() as Graphics.FontReference{
+		function getFont() as Graphics.FontType{
 			return self.mFont;
 		}
 		
 		function getText() as String{
-			return self.mText;
+			if(mText != null){
+				return mText;
+			}else{
+				return "---";
+			}
 		}
 		
 		function getColor() as Graphics.ColorType{
@@ -126,8 +130,8 @@ module MyDrawables{
 
 		private static function getFontMargins(font as FontType) as Array<Number>{
 			// retrieves the top and bottom margin of current font
-			var marginBottom = Graphics.getFontDescent(mFont) * 4/5 - 1;
-			var marginTop = Graphics.getFontAscent(mFont) * 1/4 - 1;
+			var marginBottom = Graphics.getFontDescent(font) * 4/5 - 1;
+			var marginTop = Graphics.getFontAscent(font) * 1/4 - 1;
 			return [marginTop, marginBottom] as Array<Number>;
 		}
 	}
