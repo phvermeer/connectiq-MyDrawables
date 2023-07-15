@@ -5,14 +5,15 @@ import Toybox.System;
 import MyTools;
 
 module MyDrawables{
+	enum EdgePos{
+		EDGE_RIGHT = 0,
+		EDGE_TOP = 90,
+		EDGE_LEFT = 180,
+		EDGE_BOTTOM = 270,
+		EDGE_ALL = 360,
+	}
+
 	class Edge extends WatchUi.Drawable {
-		enum EdgePos{
-			EDGE_RIGHT = 0,
-			EDGE_TOP = 90,
-			EDGE_LEFT = 180,
-			EDGE_BOTTOM = 270,
-			EDGE_ALL = 360,
-		}
 
 		// THESE PROPERTIES COULD BE MODIFIED
 		public var color as ColorType = Graphics.COLOR_LT_GRAY;
