@@ -23,6 +23,7 @@ module MyDrawables{
         }
 
         function draw(dc as Dc){
+            dc.setColor(color, Graphics.COLOR_TRANSPARENT);
             dc.drawText(locX + width/2, locY + height/2, font, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
 
@@ -38,6 +39,12 @@ module MyDrawables{
         }
         function getFont() as FontType{
             return font;
+        }
+        function setColor(color as ColorType) as Void{
+            self.color = color;
+        }
+        function getColor() as ColorType{
+            return color;
         }
 
         function updateDimensions(dc as Dc) as Void{
