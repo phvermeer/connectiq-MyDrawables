@@ -25,6 +25,10 @@ module MyDrawables{
 			:color as Graphics.ColorValue 
 		}) {
 			Drawable.initialize(settings);
+			var deviceSettings = System.getDeviceSettings();
+			width = deviceSettings.screenWidth;
+			height = deviceSettings.screenHeight;
+
 			if(settings.hasKey(:position)){
 				position = settings.get(:position) as EdgePos;
 			}
@@ -36,15 +40,13 @@ module MyDrawables{
 		function draw(dc) {
 			// Draw a red edge on top of the screen
 			if(isVisible){
-				var deviceSettings = System.getDeviceSettings();
-				var width = deviceSettings.screenWidth;
-				var height = deviceSettings.screenHeight;
 
 				var penWidth = width > 30 ? width / 30 : 1;
 				dc.setPenWidth(penWidth);
 				dc.setColor(color, Graphics.COLOR_TRANSPARENT);
 				dc.clear();
 
+				var deviceSettings = System.getDeviceSettings();
 				switch(deviceSettings.screenShape){
 				case System.SCREEN_SHAPE_ROUND:
 					{
