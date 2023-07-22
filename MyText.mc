@@ -23,8 +23,10 @@ module MyDrawables{
         }
 
         function draw(dc as Dc){
-            dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(locX + width/2, locY + height/2, font, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            if(isVisible){
+                dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+                dc.drawText(locX + width/2, locY + height/2, font, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            }
         }
 
         function setText(text as String) as Void{
