@@ -6,21 +6,20 @@ module MyDrawables{
     class MyText extends WatchUi.Drawable{
         hidden var text as String;
         hidden var font as FontType;
-        hidden var color as ColorType;
+        hidden var color as ColorType|Null;
         hidden var yOffset as Number?;
 
         function initialize(options as {
             :text as String,
             :font as FontType,
-            :color as ColorType,
+            :color as ColorType|Null,
         }){
             Drawable.initialize(options);
             var value = options.get(:text);
             text = (value != null) ? value as String : "";
             value = options.get(:font);
             font = (value != null) ? value as FontType : Graphics.FONT_SMALL;
-            value = options.get(:color);
-            color = (value != null) ? value as ColorType : Graphics.COLOR_DK_GRAY;
+            color = options.get(:color) as ColorType|Null;
         }
 
         function draw(dc as Dc){
@@ -31,8 +30,9 @@ module MyDrawables{
                     yOffset = Math.round(0.5*(fontMargins[1] - fontMargins[0])).toNumber();
                 }
 
-
-                dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+                if(color != null){
+                    dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+                }
                 var x = locX + width/2;
                 var y = locY + height/2 + yOffset as Number;
                 dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
@@ -53,10 +53,10 @@ module MyDrawables{
         function getFont() as FontType{
             return font;
         }
-        function setColor(color as ColorType) as Void{
+        function setColor(color as ColorType|Null) as Void{
             self.color = color;
         }
-        function getColor() as ColorType{
+        function getColor() as ColorType|Null{
             return color;
         }
 
