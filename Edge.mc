@@ -16,25 +16,23 @@ module MyDrawables{
 	class Edge extends WatchUi.Drawable {
 
 		// THESE PROPERTIES COULD BE MODIFIED
-		public var color as ColorType = Graphics.COLOR_LT_GRAY;
-		public var position as EdgePos = EDGE_TOP;
+		public var color as ColorType;
+		public var position as EdgePos;
+		hidden var screenShape as ScreenShape;
 
 		function  initialize(settings as {
 			:visible as Boolean,
 			:position as EdgePos, 
-			:color as Graphics.ColorValue 
+			:color as Graphics.ColorType 
 		}) {
 			Drawable.initialize(settings);
 			var deviceSettings = System.getDeviceSettings();
 			width = deviceSettings.screenWidth;
 			height = deviceSettings.screenHeight;
+			screenShape = deviceSettings.screenShape;
 
-			if(settings.hasKey(:position)){
-				position = settings.get(:position) as EdgePos;
-			}
-			if(settings.hasKey(:color)){
-				color = settings.get(:color) as ColorValue;
-			}
+			position = settings.hasKey(:position) ? settings.get(:position) as EdgePos : EDGE_TOP;
+			color = settings.hasKey(:color) ? settings.get(:color) as ColorType : Graphics.COLOR_LT_GRAY;
 		}
 		
 		function draw(dc) {
@@ -46,8 +44,7 @@ module MyDrawables{
 				dc.setColor(color, Graphics.COLOR_TRANSPARENT);
 				dc.clear();
 
-				var deviceSettings = System.getDeviceSettings();
-				switch(deviceSettings.screenShape){
+				switch(screenShape){
 				case System.SCREEN_SHAPE_ROUND:
 					{
 						var radius = width/2 - penWidth/2 + 1;
@@ -108,7 +105,7 @@ module MyDrawables{
 						break;
 					}
 				default:
-					throw new MyTools.MyException(format("Unsupported screen shape", [deviceSettings.screenShape]));
+					throw new MyTools.MyException(format("Unsupported screen shape: $1$", [screenShape]));
 				}
 			}
 		}
