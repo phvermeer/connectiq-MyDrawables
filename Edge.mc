@@ -79,7 +79,7 @@ module MyDrawables{
 							{
 								dc.drawLine(0, height, width, height);
 								dc.drawLine(0, height, 0, height*3/4);
-								dc.drawLine(width, height, width, height/4);
+								dc.drawLine(width, height, width, height*3/4);
 								break;
 							}
 							case EDGE_LEFT:
