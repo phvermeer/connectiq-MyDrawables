@@ -4,9 +4,9 @@ import Toybox.Graphics;
 
 module MyDrawables{
     class MyText extends WatchUi.Drawable{
-        hidden var text as String;
+        var text as String;
         hidden var font as FontType;
-        hidden var color as ColorType;
+        var color as ColorType;
         hidden var yOffset as Number?;
 
         function initialize(options as {
@@ -31,19 +31,11 @@ module MyDrawables{
                     yOffset = Math.round(0.5*(fontMargins[1] - fontMargins[0])).toNumber();
                 }
 
-
                 dc.setColor(color, Graphics.COLOR_TRANSPARENT);
                 var x = locX + width/2;
                 var y = locY + height/2 + yOffset as Number;
                 dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
             }
-        }
-
-        function setText(text as String) as Void{
-            self.text = text;
-        }
-        function getText() as String{
-            return text;
         }
 
         function setFont(font as FontType) as Void{
@@ -52,12 +44,6 @@ module MyDrawables{
         }
         function getFont() as FontType{
             return font;
-        }
-        function setColor(color as ColorType) as Void{
-            self.color = color;
-        }
-        function getColor() as ColorType{
-            return color;
         }
 
         hidden function getFontMargins(dc as Dc, font as FontType) as Array<Number>{
