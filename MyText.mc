@@ -69,13 +69,28 @@ module MyDrawables{
             var w = size[0];
             var h = size[1] - (fontMargins[0] + fontMargins[1]);
 
-            //locX += Math.round(0.5 * (width - w)).toNumber();
-            //locY += Math.round(0.5 * (height - h)).toNumber();
             locX += Math.round(0.5 * (width - w)).toNumber();
             locY += Math.round(0.5 * (height - h)).toNumber();
 
             width = w;
             height = h;
+        }
+
+        function adaptFontToHeight(dc as Dc, includeNumberFonts as Boolean) as Void{
+            // determine the first(largest) and last(smallest) font to check a fit
+            var largestFont = includeNumberFonts ? Graphics.FONT_NUMBER_THAI_HOT : Graphics.FONT_LARGE;
+            var smallestFont = Graphics.FONT_XTINY;
+            for(var i=largestFont; i>=smallestFont; i--){
+                var f = i as Graphics.FontDefinition;
+                var margins = getFontMargins(dc, f);
+                var h = Graphics.getFontHeight(f);
+                h -= (margins[0]+margins[1]);
+                if(h <= height){
+                    font = f;
+                    return;
+                }
+            }
+            font = smallestFont;
         }
 
         function adaptFont(dc as Dc, includeNumberFonts as Boolean) as Void{
