@@ -56,8 +56,9 @@ module MyDrawables{
             //  ─╯------------------ ┴─ -4 (below baseline) ─┴─ 0
 
             // get addition margins within returned text height (depends text is number or text)
-            var isNumber = (text.toFloat() != null);
-            var marginBottom = isNumber ? Graphics.getFontDescent(font)*2/3 : 0;
+            var f = font as Number;
+            var isNumberFont = (f >= Graphics.FONT_NUMBER_MILD && f <= Graphics.FONT_NUMBER_THAI_HOT);
+            var marginBottom = isNumberFont ? Graphics.getFontDescent(font)*2/3 : 0;
             var marginTop = Graphics.getFontAscent(font)/4;
             return [marginTop, marginBottom] as Array<Number>;
         }
