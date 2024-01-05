@@ -1,0 +1,4 @@
+<drawables>
+    <bitmap id="iconConfirm" filename="checked_24x24.png" />
+    <bitmap id="iconDelete" filename="delete_24x24.png" />
+</drawables>
