@@ -3,6 +3,81 @@ import Toybox.WatchUi;
 import Toybox.Graphics;
 
 module MyDrawables{
+    (:basic)    
+    class MyText extends WatchUi.Drawable{
+        var text as String;
+        hidden var font as FontType;
+        var color as ColorType;
+        hidden var yOffset as Number?;
+
+        function initialize(options as {
+            :text as String,
+            :font as FontType,
+            :color as ColorType,
+        }){
+            Drawable.initialize(options);
+            var value = options.get(:text);
+            text = (value != null) ? value as String : "";
+            value = options.get(:font);
+            font = (value != null) ? value as FontType : Graphics.FONT_SMALL;
+            value = options.get(:color);
+            color = (value != null) ? value as ColorType : Graphics.COLOR_DK_GRAY;
+        }
+        function draw(dc as Dc){
+            if(isVisible){
+                dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+                var x = locX + width/2;
+                var y = locY + height/2;
+                dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            }
+        }
+        function setFont(font as FontType) as Void{
+            self.font = font;
+        }
+        function getFont() as FontType{
+            return font;
+        }
+        function adaptSize(dc as Dc) as Void{
+            var dimensions = dc.getTextDimensions(text, font);
+            width = dimensions[0];
+            height = dimensions[1];
+        }
+        function adaptFontToHeight(dc as Dc, includeNumberFonts as Boolean) as Void{
+            // determine the first(largest) and last(smallest) font to check a fit
+            var largestFont = includeNumberFonts ? Graphics.FONT_NUMBER_THAI_HOT : Graphics.FONT_LARGE;
+            var smallestFont = Graphics.FONT_XTINY;
+            for(var i=largestFont; i>=smallestFont; i--){
+                var f = i as Graphics.FontDefinition;
+                var h = Graphics.getFontHeight(f) * 0.7;
+                if(h <= height){
+                    self.font = f;
+                    return;
+                }
+            }
+            self.font = smallestFont;
+        }
+        function adaptFont(dc as Dc, includeNumberFonts as Boolean) as Void{
+            // determine the first(largest) and last(smallest) font to check a fit
+            var largestFont = includeNumberFonts ? Graphics.FONT_NUMBER_THAI_HOT : Graphics.FONT_LARGE;
+            var smallestFont = Graphics.FONT_XTINY;
+
+            for(var i=largestFont; i>=smallestFont; i--){
+                var f = i as Graphics.FontDefinition;
+                var size = dc.getTextDimensions(text, f);
+                var w = size[0];
+                var h = size[1] * 0.9;
+                var ok = (w <= width) && (h <= height);
+                if(ok){
+                    self.font = f;
+                    return;
+                }
+            }
+            self.font = smallestFont;            
+        }
+
+    }
+
+    (:advanced)
     class MyText extends WatchUi.Drawable{
         var text as String;
         hidden var font as FontType;
@@ -37,7 +112,6 @@ module MyDrawables{
                 dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
             }
         }
-
         function setFont(font as FontType) as Void{
             self.font = font;
             yOffset = null;
