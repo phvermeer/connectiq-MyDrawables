@@ -2,7 +2,7 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Graphics;
 
-module MyDrawables{
+module MyBarrel{
     class MyText extends WatchUi.Drawable{
         var text as String;
         hidden var font as FontType;

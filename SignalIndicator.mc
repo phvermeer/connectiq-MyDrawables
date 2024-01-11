@@ -2,9 +2,8 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Graphics;
 import Toybox.System;
-import MyTools;
 
-module MyDrawables{
+module MyBarrel{
 
 	class SignalIndicator extends WatchUi.Drawable {
         enum SignalLevel{
