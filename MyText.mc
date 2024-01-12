@@ -3,6 +3,8 @@ import Toybox.WatchUi;
 import Toybox.Graphics;
 
 module MyBarrel{
+    (:drawables)
+    module Drawables{
     class MyText extends WatchUi.Drawable{
         var text as String;
         hidden var font as FontType;
@@ -114,4 +116,5 @@ module MyBarrel{
             font = smallestFont;
         }
     }
+}
 }

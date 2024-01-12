@@ -4,7 +4,8 @@ import Toybox.Graphics;
 import Toybox.System;
 
 module MyBarrel{
-
+    (:drawables)
+    module Drawables{
 	class SignalIndicator extends WatchUi.Drawable {
         enum SignalLevel{
             SIGNAL_NONE = 0,
@@ -65,4 +66,5 @@ module MyBarrel{
 			}
 		}
 	}
+}
 }
