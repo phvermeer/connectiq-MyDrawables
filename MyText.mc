@@ -26,18 +26,16 @@ module MyBarrel{
         }
 
         function draw(dc as Dc){
-            if(isVisible){
-                // update yOffset to correct removal of additional font margins
-                if(yOffset == null){
-                    var fontMargins = getFontMargins(dc, font);
-                    yOffset = Math.round(0.5*(fontMargins[1] - fontMargins[0])).toNumber();
-                }
-
-                dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-                var x = locX + width/2;
-                var y = locY + height/2 + yOffset as Number;
-                dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            // update yOffset to correct removal of additional font margins
+            if(yOffset == null){
+                var fontMargins = getFontMargins(dc, font);
+                yOffset = Math.round(0.5*(fontMargins[1] - fontMargins[0])).toNumber();
             }
+
+            dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+            var x = locX + width/2;
+            var y = locY + height/2 + yOffset as Number;
+            dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
 
         function setFont(font as FontType) as Void{
